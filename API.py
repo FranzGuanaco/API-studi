@@ -57,9 +57,8 @@ def login():
 
 # Route pour l'authentification
 @app.route('/auth', methods=['GET'])
-@cross_origin(origins=['https://studi-projet-4db9087415e2.herokuapp.com'])
-def test_route():
-    return jsonify({'message': 'Ceci est un message de test depuis l\'API.'})
+def test():
+    return jsonify({'message': 'Connexion réussie depuis l\'API Flask'})
 
 @app.route('/images/<filename>')
 def serve_image(filename):
