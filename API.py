@@ -11,17 +11,22 @@ CORS(app)
 bcrypt = Bcrypt()
 
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+    # Configuration de la base de données
+db_connection = psycopg2.connect(
+        host='localhost',
+        port=5432,
+        user='pierrechevin',
+        password='votre_mot_de_passe',
+        database='mercadona'
+    )
 
-# Configuration de la base de données
-db_connection = psycopg2.connect(DATABASE_URL)
 
 UPLOAD_FOLDER = '/Users/pierrechevin/Studi project/studi-project/src/Pic'
 
 # Route pour récupérer les données de la table "Utilisateurs"
 # Route pour récupérer les données de la table "Utilisateurs"
 @app.route('/login', methods=['POST'])
-@cross_origin(origins=['https://studi-projet-4db9087415e2.herokuapp.com'])
+@cross_origin(origins='http://localhost:3000')
 def login():
     data = request.json
     nom_utilisateur = data['nom_utilisateur']
@@ -57,9 +62,9 @@ def login():
 
 # Route pour l'authentification
 @app.route('/auth', methods=['GET'])
-@cross_origin(origins=['https://studi-projet-4db9087415e2.herokuapp.com'])
-def test():
-    return jsonify({'message': 'Connexion réussie depuis l\'API Flask'})
+@cross_origin(origins=['http://localhost:3000'])
+def test_route():
+    return jsonify({'message': 'Ceci est un message de test depuis l\'API.'})
 
 @app.route('/images/<filename>')
 def serve_image(filename):
