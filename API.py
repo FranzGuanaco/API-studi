@@ -11,22 +11,17 @@ CORS(app)
 bcrypt = Bcrypt()
 
 
-    # Configuration de la base de données
-db_connection = psycopg2.connect(
-        host='localhost',
-        port=5432,
-        user='pierrechevin',
-        password='votre_mot_de_passe',
-        database='mercadona'
-    )
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
+# Configuration de la base de données
+db_connection = psycopg2.connect(DATABASE_URL)
 
 UPLOAD_FOLDER = '/Users/pierrechevin/Studi project/studi-project/src/Pic'
 
 # Route pour récupérer les données de la table "Utilisateurs"
 # Route pour récupérer les données de la table "Utilisateurs"
 @app.route('/login', methods=['POST'])
-@cross_origin(origins='http://localhost:3000')
+@cross_origin(origins=['https://studi-projet-4db9087415e2.herokuapp.com'])
 def login():
     data = request.json
     nom_utilisateur = data['nom_utilisateur']
